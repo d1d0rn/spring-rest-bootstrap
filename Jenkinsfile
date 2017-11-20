@@ -4,17 +4,17 @@ stage('build') {
       timeout(time: 10, unit: 'SECONDS') {
                 userInput = input(
                     id: 'Proceed1', message: 'Was this successful?', parameters: [
-                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Is this a release?']
                     ])
         }
   } catch(err) { // timeout reached or input false
-      //def user = err.getCauses()[0].getUser()
-      //if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+      def user = err.getCauses()[0].getUser()
+      if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
         userInput = true
-      //} else {
+      } else {
         //input false
-      //  userInput = false
-     // }
+        userInput = false
+      }
   }
   if (userInput == true){
     node{
