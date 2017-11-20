@@ -8,13 +8,13 @@ stage('build') {
                     ])
         }
   } catch(err) { // timeout reached or input false
-      def user = err.getCauses()[0].getUser()
-      if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-        userInput = true
-      } else {
-        //input false
+      //def user = err.getCauses()[0].getUser()
+      //if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
         userInput = false
-      }
+      //} else {
+        //input false
+        //userInput = false
+      //}
   }
   if (userInput == true){
     node{
